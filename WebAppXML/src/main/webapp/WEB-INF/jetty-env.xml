@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_3.dtd">
+<Configure id="Server" class="org.eclipse.jetty.webapp.WebAppContext">
+    <New id="OracleDS" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg>jdbc/OracleDS</Arg>
+        <Arg>
+            <New class="oracle.jdbc.pool.OracleDataSource">
+                <Set name="DriverType">thin</Set>
+                <Set name="URL">jdbc:oracle:thin:@//192.168.1.25:1521/xe</Set>
+                <Set name="User">batook</Set>
+                <Set name="Password">batook</Set>
+            </New>
+        </Arg>
+    </New>
+</Configure>

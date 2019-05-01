@@ -4,5 +4,12 @@
 <title>Hello</title>
 <body>
 <h2>${message}</h2>
+<table>
+<c:forEach items="${list}" var="e" >
+<tr>
+<td>${e}</td>
+</tr>
+</c:forEach>
+</table>
 </body>
 </html>

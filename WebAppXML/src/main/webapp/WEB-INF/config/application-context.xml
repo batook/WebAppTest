@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cache="http://www.springframework.org/schema/cache"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
-
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/cache
+       http://www.springframework.org/schema/cache/spring-cache.xsd">
     <bean id="jndiDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName">
             <value>jdbc/OracleDS</value>
         </property>
         <property name="proxyInterface" value="javax.sql.DataSource"/>
     </bean>
-
+    <bean id="oraRepository" class="com.batook.ex2.data.OraRepository" scope="prototype">
+        <constructor-arg ref="jndiDataSource"/>
+    </bean>
+    <cache:annotation-driven/>
+    <bean id="cacheManager" class="org.springframework.cache.concurrent.ConcurrentMapCacheManager"/>
 </beans>

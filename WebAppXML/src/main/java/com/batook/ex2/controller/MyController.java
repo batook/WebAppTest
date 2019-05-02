@@ -1,5 +1,6 @@
 package com.batook.ex2.controller;
 
+import com.batook.ex2.data.OraRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,39 +10,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.naming.NamingException;
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 public class MyController {
     private static final Logger LOGGER = LoggerFactory.getLogger(MyController.class);
 
     @Autowired
-    private DataSource dataSource;
+    OraRepository oraRepository;
 
     @RequestMapping(value = "/hello",
                     method = RequestMethod.GET)
     public String showHello(ModelMap model) throws SQLException, NamingException {
         LOGGER.info("hello");
-        List<String> list = new ArrayList<>();
-        //        InitialContext ctx = new InitialContext();
-        //        DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/OracleDS");
-        Locale.setDefault(Locale.ENGLISH);
-        try (Connection conn = dataSource.getConnection(); Statement st = conn.createStatement()) {
-            ResultSet rs = st.executeQuery("select * from v$version");
-            while (rs.next()) {
-                LOGGER.info(">>> {}", rs.getString(1));
-                list.add(rs.getString(1));
-            }
-        }
+        List<String> list = oraRepository.getBanner();
         model.addAttribute("list", list);
-        model.addAttribute("message", "Hello!!!");
+        model.addAttribute("message", Calendar.getInstance().getTime());
         return "hello";
     }
 }

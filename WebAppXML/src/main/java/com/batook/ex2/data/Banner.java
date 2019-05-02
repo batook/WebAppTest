@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Immutable
 @Table(name="V$VERSION")
-public class Version {
+public class Banner {
     @Id
     @Column(name="banner")
     private String banner;
@@ -18,4 +18,10 @@ public class Version {
     public String getBanner() {
         return banner;
     }
+
+    @Override
+    public String toString() {
+        return banner;
+    }
 }
+

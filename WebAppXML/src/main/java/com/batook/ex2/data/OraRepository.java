@@ -4,7 +4,9 @@ import com.batook.ex2.controller.MyController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -16,12 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+//@Repository
+//@Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class OraRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(OraRepository.class);
 
+    private DataSource dataSource;
     private Connection conn;
     private Statement stmnt;
 
+//    @Autowired
     public OraRepository(DataSource dataSource) throws SQLException {
         Locale.setDefault(Locale.ENGLISH);
         conn = dataSource.getConnection();

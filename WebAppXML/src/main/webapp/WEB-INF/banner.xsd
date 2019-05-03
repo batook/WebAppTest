@@ -1,6 +1,16 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           targetNamespace="http://batook.com/web-service"
+           xmlns:tns="http://batook.com/ex2/schemas"
+           targetNamespace="http://batook.com/ex2/schemas"
            elementFormDefault="qualified">
+
+    <xs:element name="getBannerRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <xs:element name="getBannerResponse">
         <xs:complexType>
             <xs:sequence>
@@ -8,4 +18,5 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+
 </xs:schema>

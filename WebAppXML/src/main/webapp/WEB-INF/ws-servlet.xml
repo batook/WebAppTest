@@ -11,14 +11,15 @@
    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <context:component-scan base-package = "com.batook"/>
-    <bean id = "bannerService"
-          class = "com.batook.ex2.api.BannerServiceImpl" />
     <sws:annotation-driven/>
 
+<!--    <bean id = "bannerService"-->
+<!--          class = "com.batook.ex2.api.BannerServiceImpl" />-->
+
     <sws:dynamic-wsdl id = "banner"
-                      portTypeName = "BannerService"
+                      portTypeName = "BannerPort"
                       locationUri = "/bannerService"
-                      targetNamespace = "http://com.batook.ex2.api">
+                      targetNamespace = "http://batook.com/ex2/definitions">
         <sws:xsd location = "/WEB-INF/banner.xsd"/>
     </sws:dynamic-wsdl>
 </beans>

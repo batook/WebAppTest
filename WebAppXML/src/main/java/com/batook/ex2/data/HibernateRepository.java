@@ -22,7 +22,7 @@ public class HibernateRepository {
     private SessionFactory sessionFactory;
 
     @Cacheable(value = "Banners")
-    public List<Banner> findAll() {
+    public List<Banner> getBanners() {
 //        Transactional
 //        List<Banner> list = (List<Banner>) sessionFactory.getCurrentSession()
 //                                                         .createCriteria(Banner.class)

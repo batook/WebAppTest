@@ -21,7 +21,7 @@ public class JpaRepository {
     private EntityManager entityManager;
 
     @Cacheable(value = "Banners")
-    public List<Banner> findAll() {
+    public List<Banner> getBanners() {
         List<Banner> list = (List<Banner>) entityManager.createQuery("select s from Banner s")
                                                         .getResultList();
         LOGGER.info("JPA list {}", list);

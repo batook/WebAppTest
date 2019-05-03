@@ -34,7 +34,7 @@ public class MyController {
                     method = RequestMethod.GET)
     public String helloJDBC(ModelMap model) throws SQLException, NamingException {
         LOGGER.info("hello");
-        List<String> list = jdbcRepository.getBanner();
+        List<String> list = jdbcRepository.getBanners();
         model.addAttribute("list", list);
         model.addAttribute("message", "JDBC: " + Calendar.getInstance()
                                                          .getTime());
@@ -45,7 +45,7 @@ public class MyController {
                     method = RequestMethod.GET)
     public String helloJPA(ModelMap model) throws SQLException, NamingException {
         LOGGER.info("jpa");
-        List<Banner> list = jpaRepository.findAll();
+        List<Banner> list = jpaRepository.getBanners();
         model.addAttribute("list", list);
         model.addAttribute("message", "JPA: " + Calendar.getInstance()
                                                         .getTime());
@@ -56,7 +56,7 @@ public class MyController {
                     method = RequestMethod.GET)
     public String helloHibernate(ModelMap model) throws SQLException, NamingException {
         LOGGER.info("hibernate");
-        List<Banner> list = hibernateRepository.findAll();
+        List<Banner> list = hibernateRepository.getBanners();
         model.addAttribute("list", list);
         model.addAttribute("message", "Hibernate: " + Calendar.getInstance()
                                                               .getTime());

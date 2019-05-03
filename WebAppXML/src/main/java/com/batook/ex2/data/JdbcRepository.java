@@ -32,7 +32,7 @@ public class JdbcRepository {
     }
 
     @Cacheable(value = "Banners")
-    public List<String> getBanner() throws SQLException {
+    public List<String> getBanners() throws SQLException {
         List<String> list = new ArrayList<>();
         ResultSet rs = stmnt.executeQuery("select banner from v$version");
         while (rs.next()) {

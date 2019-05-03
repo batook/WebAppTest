@@ -1,0 +1,11 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://batook.com/web-service"
+           elementFormDefault="qualified">
+    <xs:element name="getBannerResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="banner" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

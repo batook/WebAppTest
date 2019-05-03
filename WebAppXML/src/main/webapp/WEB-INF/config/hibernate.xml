@@ -10,7 +10,7 @@
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" scope="prototype">
         <property name="dataSource" ref="jndiDataSource"/>
         <property name="packagesToScan">
-            <value>com.batook.ex2.data</value>
+            <value>com.batook.ex2.data.entity</value>
         </property>
         <property name="hibernateProperties">
             <props>

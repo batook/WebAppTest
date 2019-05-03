@@ -1,5 +1,6 @@
 package com.batook.ex2.data;
 
+import com.batook.ex2.data.entity.Banner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;

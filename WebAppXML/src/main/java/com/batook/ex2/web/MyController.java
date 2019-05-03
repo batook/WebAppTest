@@ -1,6 +1,6 @@
 package com.batook.ex2.web;
 
-import com.batook.ex2.data.Banner;
+import com.batook.ex2.data.entity.Banner;
 import com.batook.ex2.data.HibernateRepository;
 import com.batook.ex2.data.JdbcRepository;
 import com.batook.ex2.data.JpaRepository;

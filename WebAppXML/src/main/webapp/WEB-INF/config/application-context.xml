@@ -22,7 +22,7 @@
         </property>
         <property name="proxyInterface" value="javax.sql.DataSource"/>
     </bean>
-    <bean id="oraRepository" class="com.batook.ex2.data.JdbcRepository" scope="prototype">
+    <bean id="jdbcRepository" class="com.batook.ex2.data.JdbcRepository" scope="prototype">
         <constructor-arg ref="jndiDataSource"/>
     </bean>
 

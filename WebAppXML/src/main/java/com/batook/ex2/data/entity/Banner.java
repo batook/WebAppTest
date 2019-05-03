@@ -1,4 +1,4 @@
-package com.batook.ex2.data;
+package com.batook.ex2.data.entity;
 
 import org.hibernate.annotations.Immutable;
 

@@ -9,7 +9,10 @@
        http://www.springframework.org/schema/cache/spring-cache.xsd
        http://www.springframework.org/schema/context
 	   http://www.springframework.org/schema/context/spring-context.xsd">
+
     <import resource="jpa.xml"/>
+    <import resource="hibernate.xml"/>
+
     <context:component-scan base-package="com.batook.ex2.data"/>
     <context:annotation-config/>
 
@@ -19,7 +22,7 @@
         </property>
         <property name="proxyInterface" value="javax.sql.DataSource"/>
     </bean>
-    <bean id="oraRepository" class="com.batook.ex2.data.OraRepository" scope="prototype">
+    <bean id="oraRepository" class="com.batook.ex2.data.JdbcRepository" scope="prototype">
         <constructor-arg ref="jndiDataSource"/>
     </bean>
 

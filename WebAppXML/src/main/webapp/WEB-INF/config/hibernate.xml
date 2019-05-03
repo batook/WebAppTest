@@ -7,23 +7,21 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" scope="prototype">
         <property name="dataSource" ref="jndiDataSource"/>
         <property name="packagesToScan">
             <value>com.batook.ex2.data</value>
         </property>
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
-        </property>
-        <property name="jpaProperties">
+        <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
             </props>
         </property>
     </bean>
 
-    <bean id="jpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="emf"/>
+    <bean id="hibernateTransactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <constructor-arg ref="sessionFactory"/>
     </bean>
     <tx:annotation-driven/>
 </beans>

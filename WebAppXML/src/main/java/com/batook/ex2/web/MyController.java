@@ -1,8 +1,9 @@
 package com.batook.ex2.web;
 
-import com.batook.ex2.data.JpaRepository;
-import com.batook.ex2.data.OraRepository;
 import com.batook.ex2.data.Banner;
+import com.batook.ex2.data.HibernateRepository;
+import com.batook.ex2.data.JdbcRepository;
+import com.batook.ex2.data.JpaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,28 +22,44 @@ public class MyController {
     private static final Logger LOGGER = LoggerFactory.getLogger(MyController.class);
 
     @Autowired
-    OraRepository oraRepository;
+    JdbcRepository jdbcRepository;
 
     @Autowired
     JpaRepository jpaRepository;
 
-    @RequestMapping(value = "/hello",
+    @Autowired
+    HibernateRepository hibernateRepository;
+
+    @RequestMapping(value = "/jdbc",
                     method = RequestMethod.GET)
-    public String showHello(ModelMap model) throws SQLException, NamingException {
+    public String helloJDBC(ModelMap model) throws SQLException, NamingException {
         LOGGER.info("hello");
-        List<String> list = oraRepository.getBanner();
+        List<String> list = jdbcRepository.getBanner();
         model.addAttribute("list", list);
-        model.addAttribute("message", Calendar.getInstance().getTime());
+        model.addAttribute("message", "JDBC: " + Calendar.getInstance()
+                                                         .getTime());
         return "hello";
     }
 
     @RequestMapping(value = "/jpa",
                     method = RequestMethod.GET)
-    public String Hello(ModelMap model) throws SQLException, NamingException {
+    public String helloJPA(ModelMap model) throws SQLException, NamingException {
         LOGGER.info("jpa");
         List<Banner> list = jpaRepository.findAll();
         model.addAttribute("list", list);
-        model.addAttribute("message", Calendar.getInstance().getTime());
+        model.addAttribute("message", "JPA: " + Calendar.getInstance()
+                                                        .getTime());
+        return "hello";
+    }
+
+    @RequestMapping(value = "/h",
+                    method = RequestMethod.GET)
+    public String helloHibernate(ModelMap model) throws SQLException, NamingException {
+        LOGGER.info("hibernate");
+        List<Banner> list = hibernateRepository.findAll();
+        model.addAttribute("list", list);
+        model.addAttribute("message", "Hibernate: " + Calendar.getInstance()
+                                                              .getTime());
         return "hello";
     }
 }

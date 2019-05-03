@@ -13,9 +13,9 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 //http://localhost:9999/ws/bannerService/banner
 
 @Endpoint
-public class BannerServiceEndPoint {
+public class BannerServiceEndpoint {
     private static final String NAMESPACE_URI = "http://batook.com/ex2/schemas";
-    private static final Logger LOGGER = LoggerFactory.getLogger(BannerServiceEndPoint.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BannerServiceEndpoint.class);
 
     @Autowired
     private BannerService service;

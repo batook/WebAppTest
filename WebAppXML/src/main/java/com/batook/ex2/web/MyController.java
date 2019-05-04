@@ -9,7 +9,6 @@ import com.batook.ex2.schemas.GetBannerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,8 +31,11 @@ public class MyController {
     @Autowired
     HibernateRepository hibernateRepository;
 
+    //    @Autowired
+    //    Jaxb2Marshaller marshaller;
+
     @Autowired
-    Jaxb2Marshaller marshaller;
+    BannerClient client;
 
     @RequestMapping(value = "/jdbc",
                     method = RequestMethod.GET)
@@ -72,9 +74,10 @@ public class MyController {
                     method = RequestMethod.GET)
     public String helloWSDL(ModelMap model) {
         LOGGER.info("WSDL");
-        BannerClient client = new BannerClient();
-        client.setMarshaller(marshaller);
-        client.setUnmarshaller(marshaller);
+        //        BannerClient client = new BannerClient();
+        //        client.setDefaultUri("http://localhost:9999/ws/bannerService");
+        //        client.setMarshaller(marshaller);
+        //        client.setUnmarshaller(marshaller);
         GetBannerResponse response = client.getBanner("1");
         model.addAttribute("list", response.getBanner1()
                                            .getValue());

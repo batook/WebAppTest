@@ -14,7 +14,8 @@
     <xs:element name="getBannerResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="banner" type="xs:string"/>
+                <xs:element name="banner1" type="tns:bannerType"/>
+                <xs:element name="banner2" type="tns:valuelist"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -22,4 +23,10 @@
     <xs:simpleType name="valuelist">
         <xs:list itemType="xs:string"/>
     </xs:simpleType>
+
+    <xs:complexType name="bannerType">
+        <xs:sequence>
+            <xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>

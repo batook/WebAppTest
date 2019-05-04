@@ -1,5 +1,6 @@
 package com.batook.ex2.api;
 
+import com.batook.ex2.schemas.BannerType;
 import com.batook.ex2.schemas.GetBannerRequest;
 import com.batook.ex2.schemas.GetBannerResponse;
 import org.slf4j.Logger;
@@ -26,8 +27,12 @@ public class BannerServiceEndpoint {
     public GetBannerResponse getBanner(@RequestPayload GetBannerRequest request) {
         LOGGER.info("request id: {}", request.getId());
         GetBannerResponse response = new GetBannerResponse();
-        response.setBanner(service.getBanners()
-                                  .get(0));
+        BannerType banner = new BannerType();
+        banner.getValue()
+              .addAll(service.getBanners());
+        response.setBanner1(banner);
+        response.getBanner2()
+                .addAll(service.getBanners());
 
         return response;
     }

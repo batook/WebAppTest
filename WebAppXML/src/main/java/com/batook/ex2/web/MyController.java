@@ -1,18 +1,20 @@
 package com.batook.ex2.web;
 
-import com.batook.ex2.data.entity.Banner;
+import com.batook.ex2.BannerClient;
 import com.batook.ex2.data.HibernateRepository;
 import com.batook.ex2.data.JdbcRepository;
 import com.batook.ex2.data.JpaRepository;
+import com.batook.ex2.data.entity.Banner;
+import com.batook.ex2.schemas.GetBannerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.naming.NamingException;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
@@ -30,9 +32,12 @@ public class MyController {
     @Autowired
     HibernateRepository hibernateRepository;
 
+    @Autowired
+    Jaxb2Marshaller marshaller;
+
     @RequestMapping(value = "/jdbc",
                     method = RequestMethod.GET)
-    public String helloJDBC(ModelMap model) throws SQLException, NamingException {
+    public String helloJDBC(ModelMap model) throws SQLException {
         LOGGER.info("hello");
         List<String> list = jdbcRepository.getBanners();
         model.addAttribute("list", list);
@@ -43,7 +48,7 @@ public class MyController {
 
     @RequestMapping(value = "/jpa",
                     method = RequestMethod.GET)
-    public String helloJPA(ModelMap model) throws SQLException, NamingException {
+    public String helloJPA(ModelMap model) {
         LOGGER.info("jpa");
         List<Banner> list = jpaRepository.getBanners();
         model.addAttribute("list", list);
@@ -54,12 +59,27 @@ public class MyController {
 
     @RequestMapping(value = "/h",
                     method = RequestMethod.GET)
-    public String helloHibernate(ModelMap model) throws SQLException, NamingException {
+    public String helloHibernate(ModelMap model) {
         LOGGER.info("hibernate");
         List<Banner> list = hibernateRepository.getBanners();
         model.addAttribute("list", list);
         model.addAttribute("message", "Hibernate: " + Calendar.getInstance()
                                                               .getTime());
+        return "hello";
+    }
+
+    @RequestMapping(value = "/w",
+                    method = RequestMethod.GET)
+    public String helloWSDL(ModelMap model) {
+        LOGGER.info("WSDL");
+        BannerClient client = new BannerClient();
+        client.setMarshaller(marshaller);
+        client.setUnmarshaller(marshaller);
+        GetBannerResponse response = client.getBanner("1");
+        model.addAttribute("list", response.getBanner1()
+                                           .getValue());
+        model.addAttribute("message", "WSDL: " + Calendar.getInstance()
+                                                         .getTime());
         return "hello";
     }
 }

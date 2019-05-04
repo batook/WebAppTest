@@ -10,7 +10,7 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-//http://localhost:9999/ws/bannerService/banner
+//http://localhost:9999/ws/bannerService/banner.wsdl
 
 @Endpoint
 public class BannerServiceEndpoint {

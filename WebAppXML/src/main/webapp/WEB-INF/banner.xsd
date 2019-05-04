@@ -19,4 +19,7 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:simpleType name="valuelist">
+        <xs:list itemType="xs:string"/>
+    </xs:simpleType>
 </xs:schema>

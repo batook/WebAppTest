@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sch="http://batook.com/ex2/schemas">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <sch:bannerRequest>
+         <sch:id>1</sch:id>
+      </sch:bannerRequest>
+   </soapenv:Body>
+</soapenv:Envelope>

@@ -1,5 +1,5 @@
 
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://batook.com/ex2/schemas" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://batook.com/ex2/definitions" targetNamespace="http://batook.com/ex2/definitions">
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://batook.com/ex2/schemas" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://batook.com/ex2/definitions" targetNamespace="http://batook.com/ex2/definitions">
     <wsdl:types>
         <xs:schema xmlns:tns="http://batook.com/ex2/schemas" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://batook.com/ex2/schemas">
 

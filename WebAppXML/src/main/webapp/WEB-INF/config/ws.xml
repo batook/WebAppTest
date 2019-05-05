@@ -4,13 +4,13 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-        <property name="packagesToScan" value="com.batook.ex2.schemas"/>
-    </bean>
+<bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+    <property name="packagesToScan" value="com.batook.ex2.schemas"/>
+</bean>
 
-    <bean id="bannerClient" class="com.batook.ex2.BannerClient">
-        <property name="DefaultUri" value="http://localhost:9999/ws/bannerService"/>
-        <property name="Marshaller" ref="marshaller"/>
-        <property name="Unmarshaller" ref="marshaller"/>
-    </bean>
+<bean id="bannerClient" class="com.batook.ex2.BannerClient">
+    <property name="DefaultUri" value="http://localhost:9999/ws/bannerService"/>
+    <property name="Marshaller" ref="marshaller"/>
+    <property name="Unmarshaller" ref="marshaller"/>
+</bean>
 </beans>

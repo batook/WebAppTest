@@ -1,8 +1,8 @@
 package com.batook.ex2.api;
 
+import com.batook.ex2.schemas.BannerRequest;
+import com.batook.ex2.schemas.BannerResponse;
 import com.batook.ex2.schemas.BannerType;
-import com.batook.ex2.schemas.GetBannerRequest;
-import com.batook.ex2.schemas.GetBannerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +22,11 @@ public class BannerServiceEndpoint {
     private BannerService service;
 
     @PayloadRoot(namespace = NAMESPACE_URI,
-                 localPart = "getBannerRequest")
+                 localPart = "bannerRequest")
     @ResponsePayload
-    public GetBannerResponse getBanner(@RequestPayload GetBannerRequest request) {
+    public BannerResponse getBanner(@RequestPayload BannerRequest request) {
         LOGGER.info("request id: {}", request.getId());
-        GetBannerResponse response = new GetBannerResponse();
+        BannerResponse response = new BannerResponse();
         BannerType banner = new BannerType();
         banner.getValue()
               .addAll(service.getBanners());

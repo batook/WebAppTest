@@ -5,7 +5,7 @@ import com.batook.ex2.data.HibernateRepository;
 import com.batook.ex2.data.JdbcRepository;
 import com.batook.ex2.data.JpaRepository;
 import com.batook.ex2.data.entity.Banner;
-import com.batook.ex2.schemas.GetBannerResponse;
+import com.batook.ex2.schemas.BannerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +78,7 @@ public class MyController {
         //        client.setDefaultUri("http://localhost:9999/ws/bannerService");
         //        client.setMarshaller(marshaller);
         //        client.setUnmarshaller(marshaller);
-        GetBannerResponse response = client.getBanner("1");
+        BannerResponse response = client.getBanner("1");
         model.addAttribute("list", response.getBanner1()
                                            .getValue());
         model.addAttribute("message", "WSDL: " + Calendar.getInstance()

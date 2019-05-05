@@ -3,7 +3,7 @@
            targetNamespace="http://batook.com/ex2/schemas"
            elementFormDefault="qualified">
 
-    <xs:element name="getBannerRequest">
+    <xs:element name="bannerRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="id" type="xs:string"/>
@@ -11,7 +11,7 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="getBannerResponse">
+    <xs:element name="bannerResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="banner1" type="tns:bannerType"/>

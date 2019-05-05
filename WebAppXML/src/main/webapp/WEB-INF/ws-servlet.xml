@@ -15,14 +15,14 @@
     <!--    <bean id = "bannerService"-->
     <!--          class = "com.batook.ex2.api.BannerServiceImpl" />-->
 
-    <sws:static-wsdl id="banner" location="/WEB-INF/banner.wsdl"/>
+<!--    <sws:static-wsdl id="banner" location="/WEB-INF/banner.wsdl"/>-->
 
-    <!--    <sws:dynamic-wsdl id = "banner"-->
-    <!--                      portTypeName = "BannerPort"-->
-    <!--                      locationUri = "/ws/bannerService"-->
-    <!--                      targetNamespace = "http://batook.com/ex2/definitions">-->
-    <!--    <sws:xsd location = "/WEB-INF/banner.xsd"/>-->
-    <!--    </sws:dynamic-wsdl>-->
+        <sws:dynamic-wsdl id = "banner"
+                          portTypeName = "BannerPort"
+                          locationUri = "/ws/bannerService"
+                          targetNamespace = "http://batook.com/ex2/definitions">
+        <sws:xsd location = "/WEB-INF/banner.xsd"/>
+        </sws:dynamic-wsdl>
     <!--  OR  -->
     <!--    <bean id="banner" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">-->
     <!--        <property name="schema">-->

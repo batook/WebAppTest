@@ -9,19 +9,19 @@ import javax.persistence.Table;
 
 @Entity
 @Immutable
-@Table(name="V$VERSION")
+@Table(name = "V$VERSION")
 public class Banner {
     @Id
-    @Column(name="banner")
-    private String banner;
+    @Column(name = "banner")
+    private String line;
 
-    public String getBanner() {
-        return banner;
+    public String getLine() {
+        return line;
     }
 
     @Override
     public String toString() {
-        return banner;
+        return line;
     }
 }
 

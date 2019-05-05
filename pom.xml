@@ -18,7 +18,7 @@
         <hibernate.version>4.3.11.Final</hibernate.version>
         <spring.version>4.3.14.RELEASE</spring.version>
         <spring.security.version>4.2.12.RELEASE</spring.security.version>
-        <spring.ws.version>2.4.2.RELEASE</spring.ws.version>
+        <spring.ws.version>2.4.5.RELEASE</spring.ws.version>
         <jackson.version>2.9.8</jackson.version>
     </properties>
     <dependencyManagement>

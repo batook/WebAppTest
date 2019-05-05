@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-<bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-    <property name="packagesToScan" value="com.batook.ex2.schemas"/>
-</bean>
-
-<bean id="bannerClient" class="com.batook.ex2.BannerClient">
-    <property name="DefaultUri" value="http://localhost:9999/ws/bannerService"/>
-    <property name="Marshaller" ref="marshaller"/>
-    <property name="Unmarshaller" ref="marshaller"/>
-</bean>
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+	   http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!-- BannerClient -->
+    <bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="packagesToScan" value="com.batook.ex2.schemas"/>
+    </bean>
+    <bean id="bannerClient" class="com.batook.ex2.BannerClient">
+        <property name="DefaultUri" value="http://localhost:9999/ws/bannerService"/>
+        <property name="Marshaller" ref="marshaller"/>
+        <property name="Unmarshaller" ref="marshaller"/>
+    </bean>
+    <!-- RestFull http converters XML & JSON -->
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter">
+                <property name="objectMapper" ref="xmlMapper"/>
+            </bean>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper" ref="jacksonObjectMapper"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <bean id="xmlMapper" parent="jacksonObjectMapper">
+        <property name="createXmlMapper" value="true"/>
+    </bean>
+    <bean id="jacksonObjectMapper" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+        <property name="indentOutput" value="true"/>
+    </bean>
 </beans>

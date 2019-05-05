@@ -9,15 +9,20 @@ import com.batook.ex2.schemas.BannerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.*;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.client.RestTemplate;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -73,6 +78,8 @@ public class MyController {
         return "hello";
     }
 
+    //WSDL
+    //curl --header "Accept: text/html" http://localhost:9999/web/w
     @RequestMapping(value = "/w",
                     method = RequestMethod.GET)
     public String helloWSDL(ModelMap model) {
@@ -90,15 +97,45 @@ public class MyController {
     }
 
     // RESTful method
-    @RequestMapping(value = "/r",
+    //curl --header "Accept: application/json" http://localhost:9999/web/rest
+    @RequestMapping(value = "/rest",
                     method = RequestMethod.GET,
-                    produces = {"application/xml", "application/json"})
-    @ResponseStatus(HttpStatus.OK)
+                    produces = {"application/json", "application/xml"})
+    //@ResponseStatus(HttpStatus.OK)
     public @ResponseBody
     List<Banner> getBanners() {
-        LOGGER.info("REST");
+        LOGGER.info("rest");
         List<Banner> list = jpaRepository.getBanners();
         return list;
+    }
+
+    @RequestMapping(value = "/r",
+                    method = RequestMethod.GET)
+    public String helloRest(ModelMap model) {
+        LOGGER.info("Rest");
+        String URI = "http://localhost:9999/web/rest";
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setMessageConverters(getMessageConverters());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        LOGGER.info("getHeaders {}",entity.getHeaders().entrySet());
+
+        ResponseEntity<Banner> response =
+                restTemplate.exchange(URI, HttpMethod.GET, entity, Banner.class);
+        LOGGER.info("response {}",response);
+
+        model.addAttribute("list", response.getBody());
+        model.addAttribute("message", "Rest: " + Calendar.getInstance()
+                                                         .getTime());
+        return "hello";
+    }
+    private List<HttpMessageConverter<?>> getMessageConverters() {
+        List<HttpMessageConverter<?>> converters =
+                new ArrayList<HttpMessageConverter<?>>();
+        converters.add(new MappingJackson2HttpMessageConverter());
+        return converters;
     }
 }
 

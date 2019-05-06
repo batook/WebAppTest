@@ -17,12 +17,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -143,7 +141,7 @@ public class MyController {
 
     @RequestMapping(value = "/r2",
                     method = RequestMethod.GET)
-    public String helloRestTemplate(ModelMap model) throws IOException {
+    public String helloRestTemplateCommon(ModelMap model) throws IOException {
         LOGGER.info("RestTemplate");
         String URI = "http://localhost:9999/web/rest";
         RestTemplate restTemplate = new RestTemplate();
@@ -160,15 +158,69 @@ public class MyController {
         ResponseEntity<List<Banner>> response = restTemplate.exchange(URI, HttpMethod.GET, entity, typeReference);
 
         model.addAttribute("list", response.getBody());
-        model.addAttribute("message", "RestTemplate: " + Calendar.getInstance()
-                                                         .getTime());
+        model.addAttribute("message", "RestTemplateCommon: " + Calendar.getInstance()
+                                                                       .getTime());
+        return "hello";
+    }
+
+    @RequestMapping(value = "/r3",
+                    method = RequestMethod.GET)
+    public String helloRestTemplateEntity(ModelMap model) throws IOException {
+        LOGGER.info("RestTemplateEntity");
+        String URI = "http://localhost:9999/web/rest";
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setMessageConverters(getMessageConverters());
+
+
+        ResponseEntity<Object[]> responseEntity = restTemplate.getForEntity(URI, Object[].class);
+        MediaType contentType = responseEntity.getHeaders()
+                                              .getContentType();
+        HttpStatus statusCode = responseEntity.getStatusCode();
+        Object[] objects = responseEntity.getBody();
+        LOGGER.info("contentType {} ", contentType);
+        LOGGER.info("statusCode {} ", statusCode);
+        LOGGER.info("headers {}", responseEntity.getHeaders()
+                                                .entrySet());
+        model.addAttribute("list", objects);
+        model.addAttribute("message", "RestTemplateEntity: " + Calendar.getInstance()
+                                                                       .getTime());
+        return "hello";
+    }
+
+    @RequestMapping(value = "/r4",
+                    method = RequestMethod.GET)
+    public String helloRestTemplateObject(ModelMap model) throws IOException {
+        LOGGER.info("RestTemplateObject");
+        String URI = "http://localhost:9999/web/rest";
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setMessageConverters(getMessageConverters());
+
+        Object[] objects = restTemplate.getForObject(URI, Object[].class);
+
+        model.addAttribute("list", objects);
+        model.addAttribute("message", "RestTemplateObject: " + Calendar.getInstance()
+                                                                       .getTime());
+        return "hello";
+    }
+
+    @RequestMapping(value = "/r5",
+                    method = RequestMethod.GET)
+    public String helloRestTemplateList(ModelMap model) throws IOException {
+        LOGGER.info("RestTemplateWrapper");
+        String URI = "http://localhost:9999/web/rest";
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setMessageConverters(getMessageConverters());
+        List<Banner> list = restTemplate.getForObject(URI, List.class);
+        model.addAttribute("list", list);
+        model.addAttribute("message", "RestTemplateList: " + Calendar.getInstance()
+                                                                     .getTime());
         return "hello";
     }
 
     private List<HttpMessageConverter<?>> getMessageConverters() {
         List<HttpMessageConverter<?>> converters = new ArrayList<>();
         converters.add(new MappingJackson2HttpMessageConverter());
+        converters.add(new MappingJackson2XmlHttpMessageConverter());
         return converters;
     }
 }
-

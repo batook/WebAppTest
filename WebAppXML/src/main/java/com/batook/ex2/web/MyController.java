@@ -6,10 +6,21 @@ import com.batook.ex2.data.JdbcRepository;
 import com.batook.ex2.data.JpaRepository;
 import com.batook.ex2.data.entity.Banner;
 import com.batook.ex2.schemas.BannerResponse;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Controller;
@@ -17,9 +28,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -109,31 +120,53 @@ public class MyController {
         return list;
     }
 
-    @RequestMapping(value = "/r",
+    @RequestMapping(value = "/r1",
                     method = RequestMethod.GET)
-    public String helloRest(ModelMap model) {
+    public String helloRest(ModelMap model) throws IOException {
         LOGGER.info("Rest");
+        String URI = "http://localhost:9999/web/rest";
+        HttpClient client = HttpClients.createDefault();
+        HttpGet req = new HttpGet(URI);
+        req.setHeader("Accept", "application/json");
+        HttpResponse response = client.execute(req);
+        HttpEntity entity = response.getEntity();
+        ObjectMapper mapper = new ObjectMapper();
+        //        String content = new BufferedReader(new InputStreamReader(entity.getContent())).lines().collect(Collectors.joining("\n"));
+        //        LOGGER.info("content {}", content);
+        TypeReference<List<Banner>> typeReference = new TypeReference<List<Banner>>() {
+        };
+        model.addAttribute("list", mapper.readValue(entity.getContent(), typeReference));
+        model.addAttribute("message", "Rest: " + Calendar.getInstance()
+                                                         .getTime());
+        return "hello";
+    }
+
+    @RequestMapping(value = "/r2",
+                    method = RequestMethod.GET)
+    public String helloRestTemplate(ModelMap model) throws IOException {
+        LOGGER.info("RestTemplate");
         String URI = "http://localhost:9999/web/rest";
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setMessageConverters(getMessageConverters());
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<String> entity = new HttpEntity<String>(headers);
-        LOGGER.info("getHeaders {}",entity.getHeaders().entrySet());
+        org.springframework.http.HttpEntity<String> entity = new org.springframework.http.HttpEntity<>(headers);
+        LOGGER.info("getHeaders {}", entity.getHeaders()
+                                           .entrySet());
+        ParameterizedTypeReference typeReference = new ParameterizedTypeReference<List<Banner>>() {
+        };
 
-        ResponseEntity<Banner> response =
-                restTemplate.exchange(URI, HttpMethod.GET, entity, Banner.class);
-        LOGGER.info("response {}",response);
+        ResponseEntity<List<Banner>> response = restTemplate.exchange(URI, HttpMethod.GET, entity, typeReference);
 
         model.addAttribute("list", response.getBody());
-        model.addAttribute("message", "Rest: " + Calendar.getInstance()
+        model.addAttribute("message", "RestTemplate: " + Calendar.getInstance()
                                                          .getTime());
         return "hello";
     }
+
     private List<HttpMessageConverter<?>> getMessageConverters() {
-        List<HttpMessageConverter<?>> converters =
-                new ArrayList<HttpMessageConverter<?>>();
+        List<HttpMessageConverter<?>> converters = new ArrayList<>();
         converters.add(new MappingJackson2HttpMessageConverter());
         return converters;
     }

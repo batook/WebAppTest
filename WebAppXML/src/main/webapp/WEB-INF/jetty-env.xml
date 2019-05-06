@@ -17,7 +17,7 @@
         <Arg>
             <New class="org.h2.jdbcx.JdbcDataSource">
 <!--                <Set name="url">jdbc:h2:/data/test</Set>-->
-                <Set name="url">jdbc:h2:mem:test;MODE=Oracle;INIT=create schema if not exists test\;runscript from '~/IdeaProjects/WebAppTest/WebAppXML/src/main/resources/schema.sql'</Set>
+                <Set name="url">jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;MODE=Oracle;INIT=runscript from 'classpath:schema.sql'</Set>
                 <Set name="user">sa</Set>
             </New>
         </Arg>

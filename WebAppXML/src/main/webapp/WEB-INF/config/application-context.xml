@@ -18,7 +18,8 @@
 
     <bean id="jndiDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName">
-            <value>jdbc/OracleDS</value>
+<!--            <value>jdbc/OracleDS</value>-->
+            <value>jdbc/H2DS</value>
         </property>
         <property name="proxyInterface" value="javax.sql.DataSource"/>
     </bean>

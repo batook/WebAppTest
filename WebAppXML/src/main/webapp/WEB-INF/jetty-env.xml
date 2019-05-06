@@ -12,4 +12,14 @@
             </New>
         </Arg>
     </New>
+    <New id="H2DS" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg>jdbc/H2DS</Arg>
+        <Arg>
+            <New class="org.h2.jdbcx.JdbcDataSource">
+<!--                <Set name="url">jdbc:h2:/data/test</Set>-->
+                <Set name="url">jdbc:h2:mem:test;MODE=Oracle;INIT=create schema if not exists test\;runscript from '~/IdeaProjects/WebAppTest/WebAppXML/src/main/resources/schema.sql'</Set>
+                <Set name="user">sa</Set>
+            </New>
+        </Arg>
+    </New>
 </Configure>

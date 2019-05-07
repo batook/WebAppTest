@@ -263,4 +263,19 @@ public class MyController {
         return "hello";
     }
 
+    @RequestMapping(value = "/mq3",
+                    method = RequestMethod.GET)
+    public String helloMQtemplateConvert(ModelMap model) {
+        LOGGER.info("MQtemplateConvert");
+        List<Banner> list = jpaRepository.getBanners();
+        LOGGER.info("Banners {}", list);
+        List<String> result = list.stream()
+                                  .map(e -> mqt.processMessageConvert(e))
+                                  .collect(Collectors.toList());
+        LOGGER.info("Result {}", result);
+        model.addAttribute("list", result);
+        model.addAttribute("message", "MQtemplateConvert: " + Calendar.getInstance()
+                                                                      .getTime());
+        return "hello";
+    }
 }

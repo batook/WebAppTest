@@ -40,4 +40,13 @@ public class ActivemqServiceTemplateImpl {
             throw JmsUtils.convertJmsAccessException(e);
         }
     }
+
+    public String processMessageConvert(Banner banner) {
+        banner.setLine(banner.getLine() + "In");
+        log.info("Send {}", banner.getLine());
+        operations.convertAndSend(banner);
+        Banner b = (Banner) operations.receiveAndConvert();
+        return b.getLine() + "Out";
+    }
+
 }

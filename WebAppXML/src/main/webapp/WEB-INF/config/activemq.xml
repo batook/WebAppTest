@@ -11,4 +11,11 @@
         <constructor-arg ref="connectionFactory"/>
         <property name="defaultDestinationName" value="myQueue"/>
     </bean>
+    <!-- Message Listener -->
+    <!--    <jms:listener-container>-->
+    <!--        <jms:listener destination="myQueue"-->
+    <!--                      ref="alertHandler"-->
+    <!--                      method="handleAlert"/>-->
+    <!--    </jms:listener-container>-->
+    <!--    <bean id="alertHandler" class="com.batook.ex2.web.BannerAlertHandler"/>-->
 </beans>

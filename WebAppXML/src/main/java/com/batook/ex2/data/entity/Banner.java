@@ -6,17 +6,22 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Immutable
 @Table(name = "V$VERSION")
-public class Banner {
+public class Banner implements Serializable {
     @Id
     @Column(name = "banner")
     private String line;
 
     public String getLine() {
         return line;
+    }
+
+    public void setLine(String line) {
+        this.line = line;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.batook.ex2.web;
 
 import com.batook.ex2.BannerClient;
 import com.batook.ex2.api.ActivemqServiceImpl;
+import com.batook.ex2.api.ActivemqServiceTemplateImpl;
 import com.batook.ex2.data.HibernateRepository;
 import com.batook.ex2.data.JdbcRepository;
 import com.batook.ex2.data.JpaRepository;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class MyController {
@@ -57,6 +59,9 @@ public class MyController {
 
     @Autowired
     ActivemqServiceImpl mq;
+
+    @Autowired
+    ActivemqServiceTemplateImpl mqt;
 
     @RequestMapping(value = "/jdbc",
                     method = RequestMethod.GET)
@@ -241,4 +246,21 @@ public class MyController {
                                                        .getTime());
         return "hello";
     }
+
+    @RequestMapping(value = "/mq2",
+                    method = RequestMethod.GET)
+    public String helloMQtemplate(ModelMap model) {
+        LOGGER.info("MQtemplate");
+        List<Banner> list = jpaRepository.getBanners();
+        LOGGER.info("Banners {}", list);
+        List<String> result = list.stream()
+                                  .map(e -> mqt.processMessage(e))
+                                  .collect(Collectors.toList());
+        LOGGER.info("Result {}", result);
+        model.addAttribute("list", result);
+        model.addAttribute("message", "MQtemplate: " + Calendar.getInstance()
+                                                               .getTime());
+        return "hello";
+    }
+
 }

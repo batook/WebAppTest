@@ -12,6 +12,7 @@
 
     <import resource="jpa.xml"/>
     <import resource="hibernate.xml"/>
+    <import resource="activemq.xml"/>
 
     <context:component-scan base-package="com.batook.ex2.data"/>
     <context:annotation-config/>
@@ -29,5 +30,9 @@
 
     <cache:annotation-driven/>
     <bean id="cacheManager" class="org.springframework.cache.concurrent.ConcurrentMapCacheManager"/>
+
+    <bean id="connectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://localhost:61616"/>
+    </bean>
 
 </beans>

@@ -1,6 +1,7 @@
 package com.batook.ex2.web;
 
 import com.batook.ex2.BannerClient;
+import com.batook.ex2.api.ActivemqServiceImpl;
 import com.batook.ex2.data.HibernateRepository;
 import com.batook.ex2.data.JdbcRepository;
 import com.batook.ex2.data.JpaRepository;
@@ -53,6 +54,9 @@ public class MyController {
 
     @Autowired
     BannerClient client;
+
+    @Autowired
+    ActivemqServiceImpl mq;
 
     @RequestMapping(value = "/jdbc",
                     method = RequestMethod.GET)
@@ -222,5 +226,19 @@ public class MyController {
         converters.add(new MappingJackson2HttpMessageConverter());
         converters.add(new MappingJackson2XmlHttpMessageConverter());
         return converters;
+    }
+
+    @RequestMapping(value = "/mq1",
+                    method = RequestMethod.GET)
+    public String helloMQ(ModelMap model) {
+        LOGGER.info("MQ");
+        List<String> list = new ArrayList<>();
+        list.add("Test");
+        String msg = mq.processMessage("Test");
+        list.add(msg);
+        model.addAttribute("list", list);
+        model.addAttribute("message", "MQ: " + Calendar.getInstance()
+                                                       .getTime());
+        return "hello";
     }
 }

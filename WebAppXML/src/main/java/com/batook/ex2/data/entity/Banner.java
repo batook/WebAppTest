@@ -26,7 +26,7 @@ public class Banner implements Serializable {
 
     @Override
     public String toString() {
-        return line;
+        return "Banner: " + line;
     }
 }
 

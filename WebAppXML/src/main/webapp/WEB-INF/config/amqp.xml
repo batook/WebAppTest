@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/rabbit
+       http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+    <!-- RabbitMQ -->
+    <rabbit:connection-factory id="mqConnectionFactory" host="localhost"
+                               username="guest" password="guest"/>
+    <rabbit:admin connection-factory="mqConnectionFactory"/>
+
+    <rabbit:queue id="myQueue" name="myQueue"/>
+
+    <rabbit:template id="rabbitTemplate"
+                     queue="myQueue"
+                     connection-factory="mqConnectionFactory"
+                     exchange="foExchange"/>
+
+    <rabbit:fanout-exchange id="foExchange" name="foExchange">
+        <rabbit:bindings>
+            <rabbit:binding queue="myQueue"/>
+        </rabbit:bindings>
+    </rabbit:fanout-exchange>
+    <!--    <bean id="asyncListener" class="com.tp.spring_amqp_rabbitmq.SpringAMQPRabbitAyncListener"/>-->
+    <!--    <rabbit:listener-container id="myListenerContainer" connection-factory="mqConnectionFactory">-->
+    <!--        <rabbit:listener ref="asyncListener" queue-names="tpQueue"/>-->
+    <!--    </rabbit:listener-container>-->
+</beans>

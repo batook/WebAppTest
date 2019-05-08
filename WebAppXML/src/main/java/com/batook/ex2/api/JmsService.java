@@ -1,6 +1,6 @@
 package com.batook.ex2.api;
 
-public interface ActivemqService {
+public interface JmsService {
 
     String processMessage(String msg);
 }

@@ -15,8 +15,8 @@ import javax.jms.ObjectMessage;
 import javax.jms.Session;
 
 @Service
-public class ActivemqServiceTemplateImpl {
-    public static final Logger log = LoggerFactory.getLogger(ActivemqServiceTemplateImpl.class);
+public class JmsServiceTemplateImpl {
+    public static final Logger log = LoggerFactory.getLogger(JmsServiceTemplateImpl.class);
 
     @Autowired
     JmsOperations operations;

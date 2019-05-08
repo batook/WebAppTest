@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import javax.jms.*;
 
 @Service
-public class ActivemqServiceImpl implements ActivemqService {
-    public static final Logger log = LoggerFactory.getLogger(ActivemqServiceImpl.class);
+public class JmsServiceImpl implements JmsService {
+    public static final Logger log = LoggerFactory.getLogger(JmsServiceImpl.class);
 
     @Autowired
     ActiveMQConnectionFactory connectionFactory;

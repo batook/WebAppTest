@@ -1,10 +1,6 @@
 package com.batook.ex2.web;
 
 import com.batook.ex2.BannerClient;
-import com.batook.ex2.api.ActivemqServiceImpl;
-import com.batook.ex2.api.ActivemqServiceTemplateImpl;
-import com.batook.ex2.data.HibernateRepository;
-import com.batook.ex2.data.JdbcRepository;
 import com.batook.ex2.data.JpaRepository;
 import com.batook.ex2.data.entity.Banner;
 import com.batook.ex2.schemas.BannerResponse;
@@ -31,70 +27,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
-public class MyController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MyController.class);
-
-    @Autowired
-    JdbcRepository jdbcRepository;
+public class ServiceController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServiceController.class);
 
     @Autowired
     JpaRepository jpaRepository;
-
-    @Autowired
-    HibernateRepository hibernateRepository;
 
     //    @Autowired
     //    Jaxb2Marshaller marshaller;
 
     @Autowired
     BannerClient client;
-
-    @Autowired
-    ActivemqServiceImpl mq;
-
-    @Autowired
-    ActivemqServiceTemplateImpl mqt;
-
-    @RequestMapping(value = "/jdbc",
-                    method = RequestMethod.GET)
-    public String helloJDBC(ModelMap model) throws SQLException {
-        LOGGER.info("hello");
-        List<String> list = jdbcRepository.getBanners();
-        model.addAttribute("list", list);
-        model.addAttribute("message", "JDBC: " + Calendar.getInstance()
-                                                         .getTime());
-        return "hello";
-    }
-
-    @RequestMapping(value = "/jpa",
-                    method = RequestMethod.GET)
-    public String helloJPA(ModelMap model) {
-        LOGGER.info("jpa");
-        List<Banner> list = jpaRepository.getBanners();
-        model.addAttribute("list", list);
-        model.addAttribute("message", "JPA: " + Calendar.getInstance()
-                                                        .getTime());
-        return "hello";
-    }
-
-    @RequestMapping(value = "/h",
-                    method = RequestMethod.GET)
-    public String helloHibernate(ModelMap model) {
-        LOGGER.info("hibernate");
-        List<Banner> list = hibernateRepository.getBanners();
-        model.addAttribute("list", list);
-        model.addAttribute("message", "Hibernate: " + Calendar.getInstance()
-                                                              .getTime());
-        return "hello";
-    }
 
     //WSDL
     //curl --header "Accept: text/html" http://localhost:9999/web/w
@@ -231,51 +180,5 @@ public class MyController {
         converters.add(new MappingJackson2HttpMessageConverter());
         converters.add(new MappingJackson2XmlHttpMessageConverter());
         return converters;
-    }
-
-    @RequestMapping(value = "/mq1",
-                    method = RequestMethod.GET)
-    public String helloMQ(ModelMap model) {
-        LOGGER.info("MQ");
-        List<String> list = new ArrayList<>();
-        list.add("Test");
-        String msg = mq.processMessage("Test");
-        list.add(msg);
-        model.addAttribute("list", list);
-        model.addAttribute("message", "MQ: " + Calendar.getInstance()
-                                                       .getTime());
-        return "hello";
-    }
-
-    @RequestMapping(value = "/mq2",
-                    method = RequestMethod.GET)
-    public String helloMQtemplate(ModelMap model) {
-        LOGGER.info("MQtemplate");
-        List<Banner> list = jpaRepository.getBanners();
-        LOGGER.info("Banners {}", list);
-        List<String> result = list.stream()
-                                  .map(e -> mqt.processMessage(e))
-                                  .collect(Collectors.toList());
-        LOGGER.info("Result {}", result);
-        model.addAttribute("list", result);
-        model.addAttribute("message", "MQtemplate: " + Calendar.getInstance()
-                                                               .getTime());
-        return "hello";
-    }
-
-    @RequestMapping(value = "/mq3",
-                    method = RequestMethod.GET)
-    public String helloMQtemplateConvert(ModelMap model) {
-        LOGGER.info("MQtemplateConvert");
-        List<Banner> list = jpaRepository.getBanners();
-        LOGGER.info("Banners {}", list);
-        List<String> result = list.stream()
-                                  .map(e -> mqt.processMessageConvert(e))
-                                  .collect(Collectors.toList());
-        LOGGER.info("Result {}", result);
-        model.addAttribute("list", result);
-        model.addAttribute("message", "MQtemplateConvert: " + Calendar.getInstance()
-                                                                      .getTime());
-        return "hello";
     }
 }

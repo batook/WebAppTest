@@ -6,12 +6,10 @@ import com.batook.ex2.data.entity.Banner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import javax.ws.rs.*;
 import java.util.List;
 
-@Service
 @Path("say")
 public class HelloService {
     public static final Logger log = LoggerFactory.getLogger(HelloService.class);

@@ -37,11 +37,22 @@
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>ws</servlet-name>
         <url-pattern>/ws/*</url-pattern>
     </servlet-mapping>
+
+    <!-- Apache CXF -->
+    <servlet>
+        <servlet-name>cxf</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>cxf</servlet-name>
+        <url-pattern>/cxf/*</url-pattern>
+    </servlet-mapping>
+
 
     <servlet>
         <servlet-name>myServlet</servlet-name>

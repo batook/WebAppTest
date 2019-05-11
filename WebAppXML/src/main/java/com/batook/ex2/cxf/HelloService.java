@@ -1,5 +1,6 @@
 package com.batook.ex2.cxf;
 
+import com.batook.ex2.NotFoundException;
 import com.batook.ex2.data.JpaRepository;
 import com.batook.ex2.data.entity.Banner;
 import org.slf4j.Logger;
@@ -22,6 +23,9 @@ public class HelloService {
     @GET
     public List<Banner> saySomething(@QueryParam("words") @DefaultValue("Hello!") String words) {
         log.info("HelloResource {}", words);
+        if (words.equals("fuck")) {
+            throw new NotFoundException("Crap");
+        }
         List<Banner> list = jpaRepository.getBanners();
         Banner banner = new Banner();
         banner.setLine(words);

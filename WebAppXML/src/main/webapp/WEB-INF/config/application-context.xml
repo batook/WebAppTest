@@ -9,18 +9,16 @@
        http://www.springframework.org/schema/cache/spring-cache.xsd
        http://www.springframework.org/schema/context
 	   http://www.springframework.org/schema/context/spring-context.xsd">
-
+    <!-- import -->
     <import resource="jpa.xml"/>
     <import resource="hibernate.xml"/>
     <import resource="jms.xml"/>
     <import resource="amqp.xml"/>
-
-    <context:component-scan base-package="com.batook.ex2.data"/>
+    <context:component-scan base-package="com.batook.ex2.api,com.batook.ex2.data"/>
     <context:annotation-config/>
-
     <bean id="jndiDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName">
-<!--            <value>jdbc/OracleDS</value>-->
+            <!--            <value>jdbc/OracleDS</value>-->
             <value>jdbc/H2DS</value>
         </property>
         <property name="proxyInterface" value="javax.sql.DataSource"/>
@@ -28,8 +26,7 @@
     <bean id="jdbcRepository" class="com.batook.ex2.data.JdbcRepository" scope="prototype">
         <constructor-arg ref="jndiDataSource"/>
     </bean>
-
+    <bean id="bannerClient" class="com.batook.ex2.BannerClient"/>
     <cache:annotation-driven/>
     <bean id="cacheManager" class="org.springframework.cache.concurrent.ConcurrentMapCacheManager"/>
-
 </beans>

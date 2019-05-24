@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:cache="http://www.springframework.org/schema/cache"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/cache
@@ -14,8 +14,11 @@
     <import resource="hibernate.xml"/>
     <import resource="jms.xml"/>
     <import resource="amqp.xml"/>
+
     <context:component-scan base-package="com.batook.ex2.api,com.batook.ex2.data"/>
-    <context:annotation-config/>
+    <cache:annotation-driven/>
+    <bean id="cacheManager" class="org.springframework.cache.concurrent.ConcurrentMapCacheManager"/>
+
     <bean id="jndiDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName">
             <!--            <value>jdbc/OracleDS</value>-->
@@ -23,10 +26,10 @@
         </property>
         <property name="proxyInterface" value="javax.sql.DataSource"/>
     </bean>
+
     <bean id="jdbcRepository" class="com.batook.ex2.data.JdbcRepository" scope="prototype">
         <constructor-arg ref="jndiDataSource"/>
     </bean>
+
     <bean id="bannerClient" class="com.batook.ex2.BannerClient"/>
-    <cache:annotation-driven/>
-    <bean id="cacheManager" class="org.springframework.cache.concurrent.ConcurrentMapCacheManager"/>
 </beans>

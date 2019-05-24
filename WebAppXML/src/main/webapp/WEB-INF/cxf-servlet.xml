@@ -12,10 +12,8 @@
     <context:annotation-config/>
 
     <bean id="helloService" class="com.batook.ex2.cxf.HelloService"/>
-
     <!-- to support Java-to-JSON and vice-versa conversion -->
     <bean id="jsonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
-
     <!-- CXFServlet configured in web.xml sends requests here -->
     <jaxrs:server id="restContainer" address="/">
         <jaxrs:serviceBeans>

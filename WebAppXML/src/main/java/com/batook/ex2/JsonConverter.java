@@ -19,6 +19,9 @@ public class JsonConverter {
         mapper.configure(MapperFeature.DEFAULT_VIEW_INCLUSION, true);
     }
 
+    private JsonConverter() {
+    }
+
     public static <T> T fromJsonString(String json, Class<T> klass) throws IOException {
         return mapper.readValue(json, klass);
     }

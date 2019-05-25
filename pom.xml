@@ -301,6 +301,23 @@
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>3.1.1</version>
                 </plugin>
+                <plugin>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.2.2</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addClasspath>false</addClasspath>
+                            </manifest>
+                            <manifestEntries>
+                                <mode>development</mode>
+                                <groupId>${project.groupId}</groupId>
+                                <artifactId>${project.artifactId}</artifactId>
+                                <version>${project.version}</version>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
                 <!-- gmaven-plugin -->
                 <plugin>
                     <groupId>org.codehaus.gmaven</groupId>

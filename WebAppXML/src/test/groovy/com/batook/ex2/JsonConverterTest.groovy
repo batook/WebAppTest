@@ -1,7 +1,7 @@
 package com.batook.ex2
 
 import com.batook.ex2.data.entity.Banner
-import org.junit.Test
+import org.testng.annotations.Test
 
 /**
  * Project WebAppTest
@@ -12,14 +12,14 @@ class JsonConverterTest {
     @Test
     void testFromJsonString() {
         def jsonString = '{"line":"1"}'
-        Banner data = JsonConverter.fromJsonString(jsonString, Banner.class)
+        def data = JsonConverter.fromJsonString(jsonString, Banner.class)
         assert Objects.nonNull(data)
         assert '1' == data.getLine()
     }
 
     @Test
     void testToJsonString() {
-        Banner data = new Banner()
+        def data = new Banner()
         data.setLine('1')
         def jsonString = JsonConverter.toJsonString(data)
         assert Objects.nonNull(data)

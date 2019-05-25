@@ -1,6 +1,6 @@
 package com.batook.ex2.jersey
 
-import org.junit.Test
+import org.testng.annotations.Test
 
 /**
  * Project WebAppTest
@@ -10,7 +10,7 @@ import org.junit.Test
 class RestServiceTest {
     @Test
     void testHello() {
-        RestService service=new RestService()
+        RestService service = new RestService()
         assert Objects.nonNull(service)
     }
 }

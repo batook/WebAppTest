@@ -1,6 +1,6 @@
-package com.batook.ex2
+package com.batook.ex2.utils
 
-import com.batook.ex2.data.entity.Banner
+
 import org.testng.annotations.Test
 
 /**

@@ -1,4 +1,4 @@
-package com.batook.ex2;
+package com.batook.ex2.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;

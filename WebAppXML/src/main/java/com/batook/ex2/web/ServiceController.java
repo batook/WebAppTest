@@ -3,7 +3,7 @@ package com.batook.ex2.web;
 import com.batook.ex2.BannerClient;
 import com.batook.ex2.data.JpaRepository;
 import com.batook.ex2.data.entity.Banner;
-import com.batook.ex2.schemas.BannerResponse;
+import com.batook.ex2.dto.BannerResponse;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;

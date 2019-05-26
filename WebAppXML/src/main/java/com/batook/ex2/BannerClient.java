@@ -1,7 +1,7 @@
 package com.batook.ex2;
 
-import com.batook.ex2.schemas.BannerRequest;
-import com.batook.ex2.schemas.BannerResponse;
+import com.batook.ex2.dto.BannerRequest;
+import com.batook.ex2.dto.BannerResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ws.client.core.support.WebServiceGatewaySupport;

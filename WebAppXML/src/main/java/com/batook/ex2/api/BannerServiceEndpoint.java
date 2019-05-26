@@ -1,8 +1,8 @@
 package com.batook.ex2.api;
 
-import com.batook.ex2.schemas.BannerRequest;
-import com.batook.ex2.schemas.BannerResponse;
-import com.batook.ex2.schemas.BannerType;
+import com.batook.ex2.dto.BannerRequest;
+import com.batook.ex2.dto.BannerResponse;
+import com.batook.ex2.dto.BannerType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

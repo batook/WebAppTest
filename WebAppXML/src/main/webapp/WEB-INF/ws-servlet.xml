@@ -11,13 +11,13 @@
     <!-- BannerService -->
     <context:component-scan base-package="com.batook.ex2.api"/>
     <sws:annotation-driven/>
-    <sws:static-wsdl id="banner" location="/WEB-INF/banner.wsdl"/>
-    <!--    <sws:dynamic-wsdl id = "banner"-->
-    <!--                      portTypeName = "BannerPort"-->
-    <!--                      locationUri = "/ws/bannerService"-->
-    <!--                      targetNamespace = "http://batook.com/ex2/definitions">-->
-    <!--    <sws:xsd location = "/WEB-INF/banner.xsd"/>-->
-    <!--    </sws:dynamic-wsdl>-->
+    <sws:static-wsdl id="banner" location="/WEB-INF/wsdl/banner.wsdl"/>
+<!--        <sws:dynamic-wsdl id = "banner"-->
+<!--                          portTypeName = "BannerPort"-->
+<!--                          locationUri = "/ws/bannerService"-->
+<!--                          targetNamespace = "http://batook.com/ex2/definitions">-->
+<!--        <sws:xsd location = "classpath:xsd/banner.xsd"/>-->
+<!--        </sws:dynamic-wsdl>-->
     <!--  OR  -->
     <!--    <bean id="banner" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">-->
     <!--        <property name="schema">-->

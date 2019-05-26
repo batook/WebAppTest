@@ -363,7 +363,7 @@
                     </executions>
                     <configuration>
                         <packageName>com.batook.ex2.dto</packageName>
-                        <schemaDirectory>${project.basedir}/src/main/webapp/WEB-INF</schemaDirectory>
+                        <schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
                         <!-- <outputDirectory>${basedir}/src/main/java</outputDirectory>-->
                         <clearOutputDir>false</clearOutputDir>
                     </configuration>
